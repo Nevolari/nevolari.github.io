@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nevolari | Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;900&family=Inter:wght@300;600;900&display=swap');
+
+        :root { --orange: #e67e22; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        .font-special { font-family: 'Unbounded', sans-serif; font-weight: 900; }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 12vw, 8.5rem);
+            line-height: 0.9;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+        }
+
+        #stars { position: fixed; inset: 0; z-index: -1; }
+
+        .btn-main {
+            display: inline-block;
+            background: var(--orange);
+            color: #fff;
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 700;
+            padding: 1.2rem 2.5rem;
+            border-radius: 999px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .btn-main:hover { transform: scale(1.05); }
+
+        .btn-white {
+            display: inline-block;
+            background: #fff;
+            color: #000;
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 700;
+            padding: 1.5rem 3rem;
+            border-radius: 999px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 420px;
+            aspect-ratio: 9 / 16;
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 35px;
+            overflow: hidden;
+        }
+
+        .marquee-line {
+            width: 100%;
+            overflow: hidden;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 25px 0;
+            margin-top: 60px;
+        }
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: scroll 30s linear infinite;
+        }
+        @keyframes scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        .stack-item {
+            font-family: 'Unbounded', sans-serif;
+            font-size: clamp(1.2rem, 5vw, 2.5rem);
+            font-weight: 900;
+            margin-right: 60px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .reveal { opacity: 0; transform: translateY(30px); animation: fadeInUp 1s forwards; }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* Стили анкеты */
+        #form-overlay {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .form-input {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 15px;
+            color: #fff;
+            width: 100%;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .form-input:focus { border-color: var(--orange); }
+
+        select.form-input { appearance: none; cursor: pointer; }
+
+        .success-circle {
+            width: 80px;
+            height: 80px;
+            background: #27ae60;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="stars"></canvas>
+
+    <nav class="flex justify-between items-center p-6 md:p-10 max-w-[1400px] mx-auto relative z-50">
+        <div class="text-xl font-special cursor-pointer" onclick="location.reload()">NEVOLARI</div>
+        <div class="flex gap-4 opacity-30 text-[10px] font-special">
+            <span>RU</span><span>EN</span>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <section class="flex flex-col items-center text-center px-6 mt-10 reveal">
+            <h1 class="hero-title font-special mb-6">NEVOLARI</h1>
+            <div class="h-1 w-12 bg-orange-500 mb-8"></div>
+            <h2 class="text-xl md:text-3xl font-light mb-4">Разработчик</h2>
+            <p class="text-gray-500 text-sm md:text-lg max-w-md mb-10">
+                Разрабатываю проекты любой сложности на Swift, C++, C# и Python.
+            </p>
+            <button onclick="openForm()" class="btn-main w-full md:w-auto">Заказать проект</button>
+        </section>
+
+        <section class="flex flex-col md:flex-row justify-center items-center gap-10 mt-24 px-6 reveal" style="animation-delay: 0.2s">
+            <div class="flex flex-col items-center w-full max-w-[350px] md:max-w-[420px]">
+                <div class="video-container shadow-2xl"></div>
+                <a href="https://tiktok.com/@fro1sy0" class="mt-4 text-[10px] font-special opacity-40 uppercase tracking-widest">TikTok: @fro1sy0</a>
+            </div>
+            <div class="flex flex-col items-center w-full max-w-[350px] md:max-w-[420px]">
+                <div class="video-container shadow-2xl"></div>
+                <a href="https://instagram.com/flutternevo" class="mt-4 text-[10px] font-special opacity-40 uppercase tracking-widest">Insta: @flutternevo</a>
+            </div>
+        </section>
+
+        <section class="flex justify-center mt-24 px-6 reveal" style="animation-delay: 0.4s">
+            <a href="https://t.me/Nevolari" class="btn-white w-full md:w-auto shadow-2xl">Мой Telegram</a>
+        </section>
+
+        <div class="marquee-line reveal" style="animation-delay: 0.6s">
+            <div class="marquee-track">
+                <div class="stack-item">C#</div><div class="stack-item">C++</div><div class="stack-item">SWIFT</div><div class="stack-item">PYTHON</div><div class="stack-item">UNITY</div>
+                <div class="stack-item">C#</div><div class="stack-item">C++</div><div class="stack-item">SWIFT</div><div class="stack-item">PYTHON</div><div class="stack-item">UNITY</div>
+            </div>
+        </div>
+
+        <footer class="p-20 text-center text-gray-800 text-[10px] font-special uppercase tracking-[10px]">
+            Nevolari &copy; 2026
+        </footer>
+    </main>
+
+    <section id="form-overlay" class="fixed inset-0 z-40 flex items-center justify-center px-6">
+        <div id="form-container" class="w-full max-w-lg bg-[#0a0a0a] border border-white/10 p-8 rounded-[35px] shadow-2xl reveal">
+            <form id="order-form" onsubmit="sendForm(event)">
+                <h3 class="font-special text-2xl mb-8 text-center">АНКЕТА ПРОЕКТА</h3>
+                
+                <div class="mb-6">
+                    <label class="text-[10px] font-special opacity-40 block mb-2">КУДА НАПИСАТЬ?</label>
+                    <div class="flex gap-2">
+                        <select id="contact-type" name="contact_type" class="form-input w-1/3 bg-black">
+                            <option value="tg">TG</option>
+                            <option value="inst">INST</option>
+                            <option value="tt">TIKTOK</option>
+                            <option value="mail">EMAIL</option>
+                        </select>
+                        <input type="text" id="contact-value" name="contact_detail" placeholder="@username / email" class="form-input w-2/3" required>
+                    </div>
+                    <p id="error-msg" class="text-red-500 text-[10px] mt-2 hidden">Неправильный формат данных</p>
+                </div>
+
+                <div class="mb-6">
+                    <label class="text-[10px] font-special opacity-40 block mb-2">СУТЬ ВАШЕГО ПРОЕКТА</label>
+                    <textarea name="project_desc" rows="4" class="form-input resize-none" placeholder="Опишите задачу..." required></textarea>
+                </div>
+
+                <div class="mb-8">
+                    <label class="text-[10px] font-special opacity-40 block mb-2">БЮДЖЕТ ($)</label>
+                    <input type="number" name="budget" placeholder="Например: 500" class="form-input" required>
+                </div>
+
+                <button type="submit" class="btn-main w-full">ОТПРАВИТЬ</button>
+            </form>
+        </div>
+
+        <div id="success-window" class="hidden text-center reveal">
+            <div class="success-circle"><i class="bi bi-check-lg"></i></div>
+            <h3 class="font-special text-xl mb-4">ВАША АНКЕТА ОТПРАВЛЕНА</h3>
+            <p class="text-gray-400 text-sm mb-10">Ожидайте до 24 часов, мы свяжемся с вами.</p>
+            <button onclick="location.reload()" class="btn-white py-4 px-10">НА ГЛАВНУЮ</button>
+        </div>
+    </section>
+
+    <script>
+        // Звезды (твой код)
+        const canvas = document.getElementById('stars');
+        const ctx = canvas.getContext('2d');
+        let width, height, stars = [];
+
+        function init() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            stars = [];
+            const count = width > 768 ? 150 : 60;
+            for(let i=0; i<count; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: Math.random() * 1.2,
+                    opacity: Math.random(),
+                    speed: Math.random() * 0.02
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0,0,width,height);
+            ctx.fillStyle = '#fff';
+            stars.forEach(s => {
+                ctx.globalAlpha = s.opacity;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size, 0, Math.PI*2);
+                ctx.fill();
+                s.opacity += s.speed;
+                if(s.opacity > 1 || s.opacity < 0) s.speed *= -1;
+            });
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', init);
+        init();
+        draw();
+
+        // Логика переключения интерфейса
+        function openForm() {
+            const main = document.getElementById('main-content');
+            const overlay = document.getElementById('form-overlay');
+            
+            main.style.transition = 'opacity 0.5s ease';
+            main.style.opacity = '0';
+            
+            setTimeout(() => {
+                main.style.display = 'none';
+                overlay.style.display = 'flex';
+                setTimeout(() => { overlay.style.opacity = '1'; }, 50);
+            }, 500);
+        }
+
+        // Валидация и отправка
+        async function sendForm(e) {
+            e.preventDefault();
+            const type = document.getElementById('contact-type').value;
+            const val = document.getElementById('contact-value').value;
+            const error = document.getElementById('error-msg');
+            
+            // Простая проверка на email
+            if(type === 'mail' && !val.includes('@')) {
+                error.classList.remove('hidden');
+                error.innerText = "Неправильный формат Email";
+                return;
+            }
+            
+            // Проверка на @ для соцсетей
+            if((type === 'tg' || type === 'inst' || type === 'tt') && val.length < 3) {
+                error.classList.remove('hidden');
+                error.innerText = "Введите корректный никнейм";
+                return;
+            }
+
+            error.classList.add('hidden');
+            
+            // Собираем данные
+            const formData = new FormData(e.target);
+            
+            // Отправка через Formspree (замени ID после создания формы)
+            // Пока просто имитируем отправку для демонстрации
+            try {
+                // Чтобы работало реально, создай форму на formspree.io и замени URL ниже
+                // fetch("https://formspree.io/f/твой_id", { method: "POST", body: formData });
+                
+                document.getElementById('form-container').classList.add('hidden');
+                document.getElementById('success-window').classList.remove('hidden');
+            } catch (err) {
+                alert("Ошибка отправки. Попробуйте позже.");
+            }
+        }
+    </script>
+</body>
+</html>
