@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Nevolari | Developer</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;900&family=Inter:wght@300;600;900&display=swap');
@@ -231,15 +232,15 @@
                     <label class="text-[10px] font-special opacity-40 block mb-2">КУДА НАПИСАТЬ?</label>
                     <div class="flex gap-2">
                         <select id="contact-type" name="contact_type" class="form-input w-1/3 bg-black">
-                            <option value="tg">Telegram</option>
-                            <option value="inst">Instagram</option>
-                            <option value="tt">TikTok</option>
-                            <option value="mail">Gmail</option>
+                            <option value="Telegram">TG</option>
+                            <option value="Instagram">INST</option>
+                            <option value="TikTok">TIKTOK</option>
+                            <option value="Email">EMAIL</option>
                         </select>
                         <input
                             type="text"
                             id="contact-value"
-                            name="contact_detail"
+                            name="contact_value"
                             placeholder="@username / email"
                             class="form-input w-2/3"
                             required
@@ -258,7 +259,7 @@
                     <input type="number" name="budget" placeholder="Например: 500" class="form-input" required>
                 </div>
 
-                <button type="submit" class="btn-main w-full">ОТПРАВИТЬ</button>
+                <button type="submit" id="submit-btn" class="btn-main w-full">ОТПРАВИТЬ</button>
             </form>
         </div>
 
@@ -271,57 +272,50 @@
     </section>
 
     <script>
+        emailjs.init('nYwuwCr6Dr8kxvw9K');
+
         const canvas = document.getElementById('stars');
         const ctx = canvas.getContext('2d');
+        let cw, ch, stars = [];
 
-        let canvasWidth, canvasHeight;
-        let stars = [];
-
-        function initStars() {
-            canvasWidth  = canvas.width  = window.innerWidth;
-            canvasHeight = canvas.height = window.innerHeight;
-
-            const count = canvasWidth > 768 ? 150 : 60;
-
-            stars = Array.from({ length: count }, () => ({
-                x:       Math.random() * canvasWidth,
-                y:       Math.random() * canvasHeight,
-                size:    Math.random() * 1.2,
-                opacity: Math.random(),
-                speed:   Math.random() * 0.02,
-            }));
-        }
-
-        function drawStars() {
-            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        function render() {
+            ctx.clearRect(0, 0, cw, ch);
             ctx.fillStyle = '#fff';
-
-            for (const star of stars) {
-                ctx.globalAlpha = star.opacity;
+            for (let i = 0; i < stars.length; i++) {
+                let s = stars[i];
+                ctx.globalAlpha = s.o;
                 ctx.beginPath();
-                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
                 ctx.fill();
-
-                star.opacity += star.speed;
-                if (star.opacity > 1 || star.opacity < 0) star.speed *= -1;
+                s.o += s.sp;
+                if (s.o > 1 || s.o < 0) s.sp *= -1;
             }
-
-            requestAnimationFrame(drawStars);
+            requestAnimationFrame(render);
         }
 
-        window.addEventListener('resize', initStars);
-        initStars();
-        drawStars();
+        function setup() {
+            cw = canvas.width  = window.innerWidth;
+            ch = canvas.height = window.innerHeight;
+            stars = [];
+            let n = cw > 768 ? 150 : 60;
+            for (let i = 0; i < n; i++) {
+                stars.push({
+                    x:  Math.random() * cw,
+                    y:  Math.random() * ch,
+                    r:  Math.random() * 1.2,
+                    o:  Math.random(),
+                    sp: Math.random() * 0.02
+                });
+            }
+        }
 
         function openForm() {
-            const main    = document.getElementById('main-content');
+            const main = document.getElementById('main-content');
             const overlay = document.getElementById('form-overlay');
-
             main.style.transition = 'opacity 0.5s ease';
-            main.style.opacity    = '0';
-
+            main.style.opacity = '0';
             setTimeout(() => {
-                main.style.display    = 'none';
+                main.style.display = 'none';
                 overlay.style.display = 'flex';
                 setTimeout(() => { overlay.style.opacity = '1'; }, 50);
             }, 500);
@@ -329,28 +323,53 @@
 
         async function sendForm(e) {
             e.preventDefault();
-
             const type  = document.getElementById('contact-type').value;
-            const value = document.getElementById('contact-value').value;
-            const error = document.getElementById('error-msg');
+            const val   = document.getElementById('contact-value').value;
+            const err   = document.getElementById('error-msg');
+            const btn   = document.getElementById('submit-btn');
 
-            if (type === 'mail' && !value.includes('@')) {
-                error.textContent = 'Неправильный формат Email';
-                error.classList.remove('hidden');
+            if (type === 'Email' && !val.includes('@')) {
+                err.textContent = 'Неправильный формат Email';
+                err.classList.remove('hidden');
+                return;
+            }
+            if (type !== 'Email' && val.length < 3) {
+                err.textContent = 'Введите корректный никнейм';
+                err.classList.remove('hidden');
                 return;
             }
 
-            if (['tg', 'inst', 'tt'].includes(type) && value.length < 3) {
-                error.textContent = 'Введите корректный никнейм';
-                error.classList.remove('hidden');
-                return;
+            err.classList.add('hidden');
+            btn.textContent = 'ОТПРАВКА...';
+            btn.style.opacity = '0.6';
+
+            const now = new Date();
+            const date = now.toLocaleDateString('ru-RU') + ' ' + now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+
+            const desc   = document.querySelector('[name="project_desc"]').value;
+            const budget = document.querySelector('[name="budget"]').value;
+
+            try {
+                await emailjs.send('service_a9794sq', 'template_y0xt5wi', {
+                    contact_type:  type,
+                    contact_value: val,
+                    project_desc:  desc,
+                    budget:        budget,
+                    ticket_date:   date
+                });
+
+                document.getElementById('form-container').classList.add('hidden');
+                document.getElementById('success-window').classList.remove('hidden');
+            } catch {
+                btn.textContent = 'ОТПРАВИТЬ';
+                btn.style.opacity = '1';
+                alert('Ошибка отправки. Попробуйте позже.');
             }
-
-            error.classList.add('hidden');
-
-            document.getElementById('form-container').classList.add('hidden');
-            document.getElementById('success-window').classList.remove('hidden');
         }
+
+        window.addEventListener('resize', setup);
+        setup();
+        render();
     </script>
 </body>
 </html>
