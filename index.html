@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -161,17 +161,130 @@
             font-size: 40px;
             margin: 0 auto 20px;
         }
+
+        .why-card {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 2rem;
+            background: #0a0a0a;
+            transition: border-color 0.3s;
+            flex: 1;
+        }
+
+        .why-card:hover {
+            border-color: var(--orange);
+        }
+
+        .lang-btn {
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .lang-btn.active {
+            opacity: 1;
+            color: var(--orange);
+        }
+
+        .lang-btn.inactive {
+            opacity: 0.3;
+        }
+
+        #side-menu {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            height: 100%;
+            background: #0a0a0a;
+            border-left: 1px solid rgba(255,255,255,0.08);
+            z-index: 100;
+            transition: right 0.4s ease;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #side-menu.open {
+            right: 0;
+        }
+
+        #menu-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 99;
+            background: rgba(0,0,0,0.6);
+        }
+
+        #menu-overlay.open {
+            display: block;
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            font-size: 13px;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+
+        .menu-link:hover {
+            color: var(--orange);
+        }
+
+        .menu-link i {
+            font-size: 18px;
+            width: 24px;
+        }
     </style>
 </head>
 <body>
 
     <canvas id="stars"></canvas>
 
+    <div id="menu-overlay" onclick="closeMenu()"></div>
+
+    <div id="side-menu">
+        <div class="flex justify-between items-center mb-10">
+            <span class="font-special text-sm">MENU</span>
+            <button onclick="closeMenu()" class="opacity-40 hover:opacity-100 transition-opacity text-xl">&times;</button>
+        </div>
+
+        <a href="https://t.me/Nevolari" target="_blank" class="menu-link">
+            <i class="bi bi-telegram"></i>
+            <span>Telegram</span>
+        </a>
+        <a href="https://tiktok.com/@fro1sy0" target="_blank" class="menu-link">
+            <i class="bi bi-tiktok"></i>
+            <span>TikTok — @fro1sy0</span>
+        </a>
+        <a href="https://instagram.com/flutternevo" target="_blank" class="menu-link">
+            <i class="bi bi-instagram"></i>
+            <span>Instagram — @flutternevo</span>
+        </a>
+
+        <div class="mt-auto">
+            <button onclick="openForm(); closeMenu();" class="btn-main w-full text-sm" data-en="ORDER PROJECT" data-ru="ЗАКАЗАТЬ ПРОЕКТ">ORDER PROJECT</button>
+        </div>
+    </div>
+
     <nav class="flex justify-between items-center p-6 md:p-10 max-w-[1400px] mx-auto relative z-50">
         <div class="text-xl font-special cursor-pointer" onclick="location.reload()">NEVOLARI</div>
-        <div class="flex gap-4 opacity-30 text-[10px] font-special">
-            <span>RU</span>
-            <span>EN</span>
+        <div class="flex items-center gap-6">
+            <div class="flex gap-4 text-[10px] font-special">
+                <span class="lang-btn active" onclick="setLang('en')">EN</span>
+                <span class="lang-btn inactive" onclick="setLang('ru')">RU</span>
+            </div>
+            <button onclick="openMenu()" class="flex flex-col gap-1.5 opacity-60 hover:opacity-100 transition-opacity">
+                <span class="block w-5 h-px bg-white"></span>
+                <span class="block w-5 h-px bg-white"></span>
+                <span class="block w-5 h-px bg-white"></span>
+            </button>
         </div>
     </nav>
 
@@ -180,14 +293,32 @@
         <section class="flex flex-col items-center text-center px-6 mt-10 reveal">
             <h1 class="hero-title font-special mb-6">NEVOLARI</h1>
             <div class="h-1 w-12 bg-orange-500 mb-8"></div>
-            <h2 class="text-xl md:text-3xl font-light mb-4">Разработчик</h2>
-            <p class="text-gray-500 text-sm md:text-lg max-w-md mb-10">
-                Разрабатываю проекты любой сложности на Swift, C++, C# и Python.
+            <h2 class="text-xl md:text-3xl font-light mb-4" data-en="Developer" data-ru="Разработчик">Developer</h2>
+            <p class="text-gray-500 text-sm md:text-lg max-w-md mb-10" data-en="I build projects of any complexity in Swift, C++, C# and Python." data-ru="Разрабатываю проекты любой сложности на Swift, C++, C# и Python.">
+                I build projects of any complexity in Swift, C++, C# and Python.
             </p>
-            <button onclick="openForm()" class="btn-main w-full md:w-auto">Заказать проект</button>
+            <button onclick="openForm()" class="btn-main w-full md:w-auto" data-en="ORDER PROJECT" data-ru="ЗАКАЗАТЬ ПРОЕКТ">ORDER PROJECT</button>
         </section>
 
-        <section class="flex flex-col md:flex-row justify-center items-center gap-10 mt-24 px-6 reveal" style="animation-delay: 0.2s">
+        <section class="flex flex-col md:flex-row justify-center items-start gap-6 mt-24 px-6 max-w-[1000px] mx-auto reveal" style="animation-delay: 0.2s">
+            <div class="why-card">
+                <div class="text-3xl mb-4">💸</div>
+                <h3 class="font-special text-sm mb-3" data-en="FAIR PRICE" data-ru="ЧЕСТНАЯ ЦЕНА">FAIR PRICE</h3>
+                <p class="text-gray-500 text-sm leading-relaxed" data-en="I don't charge agency rates. You pay for the work, not the office and the suits." data-ru="Я не беру агентские ценники. Платите за работу, а не за офис и костюмы.">I don't charge agency rates. You pay for the work, not the office and the suits.</p>
+            </div>
+            <div class="why-card">
+                <div class="text-3xl mb-4">⚡</div>
+                <h3 class="font-special text-sm mb-3" data-en="FAST DELIVERY" data-ru="БЫСТРО">FAST DELIVERY</h3>
+                <p class="text-gray-500 text-sm leading-relaxed" data-en="No endless standups and approvals. I just get it done." data-ru="Никаких бесконечных согласований. Берусь и делаю.">No endless standups and approvals. I just get it done.</p>
+            </div>
+            <div class="why-card">
+                <div class="text-3xl mb-4">🎯</div>
+                <h3 class="font-special text-sm mb-3" data-en="PERSONAL TOUCH" data-ru="ЛИЧНЫЙ ПОДХОД">PERSONAL TOUCH</h3>
+                <p class="text-gray-500 text-sm leading-relaxed" data-en="You talk directly to the person writing your code. Not a manager, not a bot." data-ru="Вы общаетесь напрямую с тем, кто пишет ваш код. Не с менеджером.">You talk directly to the person writing your code. Not a manager, not a bot.</p>
+            </div>
+        </section>
+
+        <section class="flex flex-col md:flex-row justify-center items-center gap-10 mt-24 px-6 reveal" style="animation-delay: 0.3s">
             <div class="flex flex-col items-center w-full max-w-[350px] md:max-w-[420px]">
                 <div class="video-container shadow-2xl"></div>
                 <a href="https://tiktok.com/@fro1sy0" class="mt-4 text-[10px] font-special opacity-40 uppercase tracking-widest">TikTok: @fro1sy0</a>
@@ -199,7 +330,7 @@
         </section>
 
         <section class="flex justify-center mt-24 px-6 reveal" style="animation-delay: 0.4s">
-            <a href="https://t.me/Nevolari" class="btn-white w-full md:w-auto shadow-2xl">Мой Telegram</a>
+            <a href="https://t.me/Nevolari" class="btn-white w-full md:w-auto shadow-2xl" data-en="My Telegram" data-ru="Мой Telegram">My Telegram</a>
         </section>
 
         <div class="marquee-line reveal" style="animation-delay: 0.6s">
@@ -226,10 +357,10 @@
     <section id="form-overlay" class="fixed inset-0 z-40 flex items-center justify-center px-6">
         <div id="form-container" class="w-full max-w-lg bg-[#0a0a0a] border border-white/10 p-8 rounded-[35px] shadow-2xl reveal">
             <form id="order-form" onsubmit="sendForm(event)">
-                <h3 class="font-special text-2xl mb-8 text-center">АНКЕТА ПРОЕКТА</h3>
+                <h3 class="font-special text-2xl mb-8 text-center" data-en="PROJECT FORM" data-ru="АНКЕТА ПРОЕКТА">PROJECT FORM</h3>
 
                 <div class="mb-6">
-                    <label class="text-[10px] font-special opacity-40 block mb-2">КУДА НАПИСАТЬ?</label>
+                    <label class="text-[10px] font-special opacity-40 block mb-2" data-en="HOW TO REACH YOU?" data-ru="КУДА НАПИСАТЬ?">HOW TO REACH YOU?</label>
                     <div class="flex gap-2">
                         <select id="contact-type" name="contact_type" class="form-input w-1/3 bg-black">
                             <option value="Telegram">TG</option>
@@ -246,33 +377,62 @@
                             required
                         >
                     </div>
-                    <p id="error-msg" class="text-red-500 text-[10px] mt-2 hidden">Неправильный формат данных</p>
+                    <p id="error-msg" class="text-red-500 text-[10px] mt-2 hidden">Invalid format</p>
                 </div>
 
                 <div class="mb-6">
-                    <label class="text-[10px] font-special opacity-40 block mb-2">СУТЬ ВАШЕГО ПРОЕКТА</label>
-                    <textarea name="project_desc" rows="4" class="form-input resize-none" placeholder="Опишите задачу..." required></textarea>
+                    <label class="text-[10px] font-special opacity-40 block mb-2" data-en="ABOUT THE PROJECT" data-ru="СУТЬ ВАШЕГО ПРОЕКТА">ABOUT THE PROJECT</label>
+                    <textarea name="project_desc" rows="4" class="form-input resize-none" placeholder="Describe the task..." required></textarea>
                 </div>
 
                 <div class="mb-8">
-                    <label class="text-[10px] font-special opacity-40 block mb-2">БЮДЖЕТ ($)</label>
-                    <input type="number" name="budget" placeholder="Например: 500" class="form-input" required>
+                    <label class="text-[10px] font-special opacity-40 block mb-2" data-en="BUDGET ($)" data-ru="БЮДЖЕТ ($)">BUDGET ($)</label>
+                    <input type="number" name="budget" placeholder="e.g. 500" class="form-input" required>
                 </div>
 
-                <button type="submit" id="submit-btn" class="btn-main w-full">ОТПРАВИТЬ</button>
+                <button type="submit" id="submit-btn" class="btn-main w-full" data-en="SEND" data-ru="ОТПРАВИТЬ">SEND</button>
             </form>
         </div>
 
         <div id="success-window" class="hidden text-center reveal">
             <div class="success-circle"><i class="bi bi-check-lg"></i></div>
-            <h3 class="font-special text-xl mb-4">ВАША АНКЕТА ОТПРАВЛЕНА</h3>
-            <p class="text-gray-400 text-sm mb-10">Ожидайте до 24 часов, мы свяжемся с вами.</p>
-            <button onclick="location.reload()" class="btn-white py-4 px-10">НА ГЛАВНУЮ</button>
+            <h3 class="font-special text-xl mb-4" data-en="APPLICATION SENT" data-ru="АНКЕТА ОТПРАВЛЕНА">APPLICATION SENT</h3>
+            <p class="text-gray-400 text-sm mb-10" data-en="Expect a reply within 24 hours." data-ru="Ожидайте до 24 часов, мы свяжемся с вами.">Expect a reply within 24 hours.</p>
+            <button onclick="location.reload()" class="btn-white py-4 px-10" data-en="BACK HOME" data-ru="НА ГЛАВНУЮ">BACK HOME</button>
         </div>
     </section>
 
     <script>
         emailjs.init('nYwuwCr6Dr8kxvw9K');
+
+        let lang = 'en';
+
+        function setLang(l) {
+            lang = l;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent.toLowerCase() === l);
+                btn.classList.toggle('inactive', btn.textContent.toLowerCase() !== l);
+            });
+            document.querySelectorAll('[data-en]').forEach(el => {
+                el.textContent = el.dataset[l];
+            });
+            const ta = document.querySelector('textarea[name="project_desc"]');
+            const budget = document.querySelector('input[name="budget"]');
+            const contact = document.getElementById('contact-value');
+            if (ta) ta.placeholder = l === 'en' ? 'Describe the task...' : 'Опишите задачу...';
+            if (budget) budget.placeholder = l === 'en' ? 'e.g. 500' : 'Например: 500';
+            if (contact) contact.placeholder = '@username / email';
+        }
+
+        function openMenu() {
+            document.getElementById('side-menu').classList.add('open');
+            document.getElementById('menu-overlay').classList.add('open');
+        }
+
+        function closeMenu() {
+            document.getElementById('side-menu').classList.remove('open');
+            document.getElementById('menu-overlay').classList.remove('open');
+        }
 
         const canvas = document.getElementById('stars');
         const ctx = canvas.getContext('2d');
@@ -329,18 +489,18 @@
             const btn   = document.getElementById('submit-btn');
 
             if (type === 'Email' && !val.includes('@')) {
-                err.textContent = 'Неправильный формат Email';
+                err.textContent = lang === 'en' ? 'Invalid email format' : 'Неправильный формат Email';
                 err.classList.remove('hidden');
                 return;
             }
             if (type !== 'Email' && val.length < 3) {
-                err.textContent = 'Введите корректный никнейм';
+                err.textContent = lang === 'en' ? 'Enter a valid username' : 'Введите корректный никнейм';
                 err.classList.remove('hidden');
                 return;
             }
 
             err.classList.add('hidden');
-            btn.textContent = 'ОТПРАВКА...';
+            btn.textContent = lang === 'en' ? 'SENDING...' : 'ОТПРАВКА...';
             btn.style.opacity = '0.6';
 
             const now = new Date();
@@ -361,9 +521,9 @@
                 document.getElementById('form-container').classList.add('hidden');
                 document.getElementById('success-window').classList.remove('hidden');
             } catch {
-                btn.textContent = 'ОТПРАВИТЬ';
+                btn.textContent = lang === 'en' ? 'SEND' : 'ОТПРАВИТЬ';
                 btn.style.opacity = '1';
-                alert('Ошибка отправки. Попробуйте позже.');
+                alert(lang === 'en' ? 'Send error. Try again later.' : 'Ошибка отправки. Попробуйте позже.');
             }
         }
 
