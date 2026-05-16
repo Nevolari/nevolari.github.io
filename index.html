@@ -9,7 +9,9 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;900&family=Inter:wght@300;600;900&display=swap');
 
-        :root { --orange: #e67e22; }
+        :root {
+            --orange: #e67e22;
+        }
 
         body {
             background: #000;
@@ -20,7 +22,10 @@
             width: 100%;
         }
 
-        .font-special { font-family: 'Unbounded', sans-serif; font-weight: 900; }
+        .font-special {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 900;
+        }
 
         .hero-title {
             font-size: clamp(2.5rem, 12vw, 8.5rem);
@@ -29,7 +34,11 @@
             text-transform: uppercase;
         }
 
-        #stars { position: fixed; inset: 0; z-index: -1; }
+        #stars {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+        }
 
         .btn-main {
             display: inline-block;
@@ -40,12 +49,14 @@
             padding: 1.2rem 2.5rem;
             border-radius: 999px;
             text-transform: uppercase;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
             text-align: center;
             cursor: pointer;
         }
-        
-        .btn-main:hover { transform: scale(1.05); }
+
+        .btn-main:hover {
+            transform: scale(1.05);
+        }
 
         .btn-white {
             display: inline-block;
@@ -64,7 +75,7 @@
             max-width: 420px;
             aspect-ratio: 9 / 16;
             background: #0a0a0a;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 35px;
             overflow: hidden;
         }
@@ -72,20 +83,23 @@
         .marquee-line {
             width: 100%;
             overflow: hidden;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding: 25px 0;
             margin-top: 60px;
         }
+
         .marquee-track {
             display: flex;
             width: max-content;
             animation: scroll 30s linear infinite;
         }
+
         @keyframes scroll {
             from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
+            to   { transform: translateX(-50%); }
         }
+
         .stack-item {
             font-family: 'Unbounded', sans-serif;
             font-size: clamp(1.2rem, 5vw, 2.5rem);
@@ -96,10 +110,19 @@
             gap: 15px;
         }
 
-        .reveal { opacity: 0; transform: translateY(30px); animation: fadeInUp 1s forwards; }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards;
+        }
 
-        /* Стили анкеты */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         #form-overlay {
             display: none;
             opacity: 0;
@@ -107,8 +130,8 @@
         }
 
         .form-input {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 1rem;
             border-radius: 15px;
             color: #fff;
@@ -116,9 +139,15 @@
             outline: none;
             transition: border-color 0.3s;
         }
-        .form-input:focus { border-color: var(--orange); }
 
-        select.form-input { appearance: none; cursor: pointer; }
+        .form-input:focus {
+            border-color: var(--orange);
+        }
+
+        select.form-input {
+            appearance: none;
+            cursor: pointer;
+        }
 
         .success-circle {
             width: 80px;
@@ -140,11 +169,13 @@
     <nav class="flex justify-between items-center p-6 md:p-10 max-w-[1400px] mx-auto relative z-50">
         <div class="text-xl font-special cursor-pointer" onclick="location.reload()">NEVOLARI</div>
         <div class="flex gap-4 opacity-30 text-[10px] font-special">
-            <span>RU</span><span>EN</span>
+            <span>RU</span>
+            <span>EN</span>
         </div>
     </nav>
 
     <main id="main-content">
+
         <section class="flex flex-col items-center text-center px-6 mt-10 reveal">
             <h1 class="hero-title font-special mb-6">NEVOLARI</h1>
             <div class="h-1 w-12 bg-orange-500 mb-8"></div>
@@ -172,21 +203,30 @@
 
         <div class="marquee-line reveal" style="animation-delay: 0.6s">
             <div class="marquee-track">
-                <div class="stack-item">C#</div><div class="stack-item">C++</div><div class="stack-item">SWIFT</div><div class="stack-item">PYTHON</div><div class="stack-item">UNITY</div>
-                <div class="stack-item">C#</div><div class="stack-item">C++</div><div class="stack-item">SWIFT</div><div class="stack-item">PYTHON</div><div class="stack-item">UNITY</div>
+                <div class="stack-item">C#</div>
+                <div class="stack-item">C++</div>
+                <div class="stack-item">SWIFT</div>
+                <div class="stack-item">PYTHON</div>
+                <div class="stack-item">UNITY</div>
+                <div class="stack-item">C#</div>
+                <div class="stack-item">C++</div>
+                <div class="stack-item">SWIFT</div>
+                <div class="stack-item">PYTHON</div>
+                <div class="stack-item">UNITY</div>
             </div>
         </div>
 
         <footer class="p-20 text-center text-gray-800 text-[10px] font-special uppercase tracking-[10px]">
             Nevolari &copy; 2026
         </footer>
+
     </main>
 
     <section id="form-overlay" class="fixed inset-0 z-40 flex items-center justify-center px-6">
         <div id="form-container" class="w-full max-w-lg bg-[#0a0a0a] border border-white/10 p-8 rounded-[35px] shadow-2xl reveal">
             <form id="order-form" onsubmit="sendForm(event)">
                 <h3 class="font-special text-2xl mb-8 text-center">АНКЕТА ПРОЕКТА</h3>
-                
+
                 <div class="mb-6">
                     <label class="text-[10px] font-special opacity-40 block mb-2">КУДА НАПИСАТЬ?</label>
                     <div class="flex gap-2">
@@ -196,7 +236,14 @@
                             <option value="tt">TIKTOK</option>
                             <option value="mail">EMAIL</option>
                         </select>
-                        <input type="text" id="contact-value" name="contact_detail" placeholder="@username / email" class="form-input w-2/3" required>
+                        <input
+                            type="text"
+                            id="contact-value"
+                            name="contact_detail"
+                            placeholder="@username / email"
+                            class="form-input w-2/3"
+                            required
+                        >
                     </div>
                     <p id="error-msg" class="text-red-500 text-[10px] mt-2 hidden">Неправильный формат данных</p>
                 </div>
@@ -224,99 +271,85 @@
     </section>
 
     <script>
-        // Звезды (твой код)
         const canvas = document.getElementById('stars');
         const ctx = canvas.getContext('2d');
-        let width, height, stars = [];
 
-        function init() {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
-            stars = [];
-            const count = width > 768 ? 150 : 60;
-            for(let i=0; i<count; i++) {
-                stars.push({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    size: Math.random() * 1.2,
-                    opacity: Math.random(),
-                    speed: Math.random() * 0.02
-                });
-            }
+        let canvasWidth, canvasHeight;
+        let stars = [];
+
+        function initStars() {
+            canvasWidth  = canvas.width  = window.innerWidth;
+            canvasHeight = canvas.height = window.innerHeight;
+
+            const count = canvasWidth > 768 ? 150 : 60;
+
+            stars = Array.from({ length: count }, () => ({
+                x:       Math.random() * canvasWidth,
+                y:       Math.random() * canvasHeight,
+                size:    Math.random() * 1.2,
+                opacity: Math.random(),
+                speed:   Math.random() * 0.02,
+            }));
         }
 
-        function draw() {
-            ctx.clearRect(0,0,width,height);
+        function drawStars() {
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
             ctx.fillStyle = '#fff';
-            stars.forEach(s => {
-                ctx.globalAlpha = s.opacity;
+
+            for (const star of stars) {
+                ctx.globalAlpha = star.opacity;
                 ctx.beginPath();
-                ctx.arc(s.x, s.y, s.size, 0, Math.PI*2);
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
                 ctx.fill();
-                s.opacity += s.speed;
-                if(s.opacity > 1 || s.opacity < 0) s.speed *= -1;
-            });
-            requestAnimationFrame(draw);
+
+                star.opacity += star.speed;
+                if (star.opacity > 1 || star.opacity < 0) star.speed *= -1;
+            }
+
+            requestAnimationFrame(drawStars);
         }
 
-        window.addEventListener('resize', init);
-        init();
-        draw();
+        window.addEventListener('resize', initStars);
+        initStars();
+        drawStars();
 
-        // Логика переключения интерфейса
         function openForm() {
-            const main = document.getElementById('main-content');
+            const main    = document.getElementById('main-content');
             const overlay = document.getElementById('form-overlay');
-            
+
             main.style.transition = 'opacity 0.5s ease';
-            main.style.opacity = '0';
-            
+            main.style.opacity    = '0';
+
             setTimeout(() => {
-                main.style.display = 'none';
+                main.style.display    = 'none';
                 overlay.style.display = 'flex';
                 setTimeout(() => { overlay.style.opacity = '1'; }, 50);
             }, 500);
         }
 
-        // Валидация и отправка
         async function sendForm(e) {
             e.preventDefault();
-            const type = document.getElementById('contact-type').value;
-            const val = document.getElementById('contact-value').value;
+
+            const type  = document.getElementById('contact-type').value;
+            const value = document.getElementById('contact-value').value;
             const error = document.getElementById('error-msg');
-            
-            // Простая проверка на email
-            if(type === 'mail' && !val.includes('@')) {
+
+            if (type === 'mail' && !value.includes('@')) {
+                error.textContent = 'Неправильный формат Email';
                 error.classList.remove('hidden');
-                error.innerText = "Неправильный формат Email";
                 return;
             }
-            
-            // Проверка на @ для соцсетей
-            if((type === 'tg' || type === 'inst' || type === 'tt') && val.length < 3) {
+
+            if (['tg', 'inst', 'tt'].includes(type) && value.length < 3) {
+                error.textContent = 'Введите корректный никнейм';
                 error.classList.remove('hidden');
-                error.innerText = "Введите корректный никнейм";
                 return;
             }
 
             error.classList.add('hidden');
-            
-            // Собираем данные
-            const formData = new FormData(e.target);
-            
-            // Отправка через Formspree (замени ID после создания формы)
-            // Пока просто имитируем отправку для демонстрации
-            try {
-                // Чтобы работало реально, создай форму на formspree.io и замени URL ниже
-                // fetch("https://formspree.io/f/твой_id", { method: "POST", body: formData });
-                
-                document.getElementById('form-container').classList.add('hidden');
-                document.getElementById('success-window').classList.remove('hidden');
-            } catch (err) {
-                alert("Ошибка отправки. Попробуйте позже.");
-            }
+
+            document.getElementById('form-container').classList.add('hidden');
+            document.getElementById('success-window').classList.remove('hidden');
         }
     </script>
 </body>
